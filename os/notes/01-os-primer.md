@@ -65,7 +65,7 @@ The role of the process control block arises as an identification card for each 
 
 The process control block contains many attributes such as process ID, process state, process priority, accounting information, program counter, CPU registers`, etc for each process.
 
-![Process Control Block](https://scaler.com/topics/images/structure-of-process-control-block.webp)
+
 
 ### Types of Processes
 
