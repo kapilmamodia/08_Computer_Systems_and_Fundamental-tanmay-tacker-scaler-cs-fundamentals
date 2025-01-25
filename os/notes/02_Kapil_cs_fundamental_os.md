@@ -474,3 +474,11 @@ s2 == s3 //true
 ```
 
 PECS - Producer extends Consumer super -
+
+
+* Reference copy vs shallow copy vs deep copy - https://medium.com/swlh/reference-copy-shallow-copy-and-deep-copy-63f9418c9c51
+  * Reference copy - Copying the reference of an object. Both the original object and the copied object point to the same memory location. If the original object is modified, the copied object is also modified. 
+  * Shallow copy - Copying the values of the primitive data types and the references of the non-primitive data types. The copied object has its own memory location. If the original object is modified, the copied object is not modified. However, if the non-primitive data types are modified, the copied object is also modified. 
+  * Deep copy - Copying the values of the primitive data types and the values of the non-primitive data types. The copied object has its own memory location. If the original object is modified, the copied object is not modified. If the non-primitive data types are modified, the copied object is not modified.
+
+* Clone vs copy constructor  
