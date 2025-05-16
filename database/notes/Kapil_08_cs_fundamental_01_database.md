@@ -1,4 +1,4 @@
-## 01-database-fundamentals.md
+# 01-database-fundamentals.md
 
 * Data -->  information or facts and statistics collected together for reference and analysis. 
 * Database --> collection of data, organized in a way that can be easily accessed, managed, and updated
@@ -63,7 +63,9 @@
 
 ---------------------------------------------------------------------------------------- ------------------------------------------
 
-## 02-schema-design.pdf
+
+
+# 02-schema-design.pdf
 
 * Database Schema --> A schema is a blueprint of a database., structure that represents the logical view of the entire database
         Schema is a collection of database objects, including tables, views, indexes, etc.
@@ -110,7 +112,9 @@
 
 ----------------------------------------------------------------------------------------------------------------------------------- 
 
-## 03-normalisation-acid.md
+
+
+# 03-normalisation-acid.md
 
 * Data Anomalies --> data inconsistencies that can arise in a database due to poor database design.
 
@@ -172,7 +176,9 @@
     * Durability --> once a transaction is committed, the changes made by the transaction are permanent and cannot be undone.
 -----------------------------------------------------------------------------------------------------------------------------------
 
-## 04-transactions-indexes.md
+
+
+# 04-transactions-indexes.md
 
 * Indexes --> data structure that improves the speed of data retrieval operations on a database table at the cost of additional writes and storage space.
     * Clustered Index --> determines the physical order of data in a table, and the table can have only one clustered index.
@@ -288,7 +294,9 @@ The top node is the root, and those below it are either child nodes or leaf node
     * Columns that are frequently manipulated should not be indexed. Maintenance on the index can become excessive.
 -----------------------------------------------------------------------------------------------------------------------------------
 
-## 05_09 - all documents in one
+
+
+# 05_09 - all documents in one
 
 * String matching wildcards - With `LIKE` you can use the following two wildcard characters in the pattern
       

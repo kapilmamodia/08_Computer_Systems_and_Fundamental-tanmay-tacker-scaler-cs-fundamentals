@@ -9,14 +9,12 @@ Polymorphism is often referred to as the third pillar of object-oriented program
 * At run time, objects of a derived class may be treated as objects of a base class in places such as method parameters and collections or arrays. When this polymorphism occurs, the object's declared type is no longer identical to its run-time type
 * Base classes may define methods, and derived classes can override them, which means they provide their own definition and implementation. At run-time, when client code calls the method, the CLR looks up the run-time type of the object, and invokes that override of the virtual method. In your source code you can call a method on a base class, and cause a derived class's version of the method to be executed.
 
-Polymorphism in Java can be achieved in two ways i.e., method overloading and method overriding.
+### Polymorphism in Java can be achieved in two ways i.e., method overloading and method overriding.
 
-Polymorphism in Java is mainly divided into two types.
-
-* Compile-time polymorphism
-* Runtime polymorphism
-
-Compile-time polymorphism can be achieved by method overloading, and Runtime polymorphism can be achieved by method overriding.
+    Polymorphism in Java is mainly divided into two types.
+    
+    * Compile-time polymorphism - method overloading
+    * Runtime polymorphism - method overriding
 
 ### Subtyping
 
@@ -48,7 +46,8 @@ User user = new Student();
 
 ### Method Overloading
 
-Method overloading is a feature that allows a class to have more than one method having the same name, if their argument lists are different. It is similar to constructor overloading in Java, that allows a class to have more than one constructor having different argument lists.
+Method overloading is a feature that allows a class to have more than one method having the same name, if their parameter lists are different. 
+It is similar to **constructor overloading** in Java, that allows a class to have more than one constructor having different argument lists.
 
 Let's take an example of a class that has two methods having the same name but different in parameters.
 
