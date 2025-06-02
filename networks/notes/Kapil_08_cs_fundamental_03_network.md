@@ -80,29 +80,36 @@ Modern browsers and servers optimize this process through:
 - **Compression:** Using protocols like Gzip or Brotli to reduce data size.
 
 ### OSI Model - Open Systems Interconnection Model 
+* The OSI model is used to understand how networks operate and how data is transmitted from one computer to another.
+* The OSI model is a theoretical model, and in practice, the TCP/IP model is more commonly used.
 * Separation of Responsibility, Abstraction (hide complexity), Hierarchical, Layered Model
-* In plain English, the OSI provides a standard for different computer systems to be able to communicate with each other.
 * It’s based on the concept of splitting up a communication system into seven abstract layers, each one stacked upon the last.
 * Each layer has a specific function and interacts with the layers above and below it.
-* The OSI model is a theoretical model, and in practice, the TCP/IP model is more commonly used.
-* The OSI model is used to understand how networks operate and how data is transmitted from one computer to another.
 * The OSI model is divided into seven layers:
   *  Layers -      
 
          **Application Layer** - Closest to the end-user, it interacts directly with software applications to provide communication services (e.g., HTTP/HTTPS, FTP, DNS, SMTP/POP3/IMAP).
     
-         **Presentation Layer** - Responsible for data formatting, encryption, compression.
+         **Presentation Layer** - Responsible for data formatting, encryption, compression. Protocol - SSL/TLS
     
-         **Session Layer** - Establishes, maintains, and terminates communication sessions between applications. 
+         **Session Layer** - Establishes, maintains, and terminates communication sessions between appllication.  Protocol - NetBIOS, RPC
     
          **Transport Layer** - End to end communication. Commnication between two devices. Data converted into segment. Ensures reliable data transfer through error detection, retransmission, and flow control and error control. Protocols include TCP and UDP. Gaurantee of delivery, falut tolerance, in-order transmission.
     
-         **Network Layer** - Divide segment into packets. Packets routing done here. Handles logical addressing and routing of data between devices across different networks. Protocols include IP and ICMP.
+         **Network Layer** - Routing, logical addressing - Divide segment into packets. Packets routing done here. Handles logical addressing and routing of data between devices across different networks. Protocols include IP and ICMP.
     
-         **Data Link Layer** - Similar to netwrok layer, care about only next hop in the network. Hop to hop transfer. Provides error detection and correction for data transmitted over the physical layer. It manages MAC addresses and frame synchronization.
+         **Data Link Layer** - Physical addressing, error detection - Similar to netwrok layer, care about only next hop in the network. Hop to hop transfer. Provides error detection and correction for data transmitted over the physical layer. Protocol -- MAC, Ethernet.
     
-         **Physical Layer** - The lowest layer,  Convert into BitSTream 0 or 1. it deals with the physical transmission of raw binary data over hardware like cables, switches, and wireless signals. Eithernet, wifi etc this layer protocol.
+         **Physical Layer** - The lowest layer, Hardware -  Convert into BitSTream 0 or 1. it deals with the physical transmission of raw binary data over hardware like cables, switches, and wireless signals. 
 
+
+💡 Key Points
+
+    Top 3 layers (7–5): Deal with how applications communicate
+
+    Middle layer (4): Ensures delivery of data
+
+    Bottom 3 layers (3–1): Deal with data transmission and routing
 
 ![vs](https://www.imperva.com/learn/wp-content/uploads/sites/13/2020/02/OSI-vs.-TCPIP-models.jpg.webp)
 
@@ -131,7 +138,7 @@ Modern browsers and servers optimize this process through:
 ![client-server](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Client-server-model.svg/1280px-Client-server-model.svg.png)
 
 ### Peer-to-peer (P2P) 
-- decentralized model - on one machine serving as server.
+- decentralized model - A network where each node (peer) acts as both a client and a server. 
 - In the client-server model, many users trying to access a large file, such as a film, would put strain on one server. In the peer-to-peer model, many users on the network could store the same file. Each computer can then send sections of the file, sharing the workload. Each client can download and share files with other users.
 - In P2P - other protocol will not work like - http/https. It will work on BitTorrent protocol.
 
@@ -143,6 +150,7 @@ Some applications of the peer-to-peer model are:
 * Content delivery - Torrents
 * File sharing - Torrents, DC++
 * Cryptocurrency - work on Blockchain which uses peer to peer model.
+* Tesla Car
 
 ### BitTorrent - P2P Protocol
 
@@ -175,11 +183,14 @@ The BitTorrent protocol can be used to reduce the server and network impact of d
 * Spotify uses hybrid model - client server and P2P model and tht is why it is able to provide music to users even in slow internet connection And better than Apple Music.
 * Tesla cars have P2P network to update software and share data (traffic).
 
-### Http Method/Verbs -
-- Crete - POST/PUT - Post is not idempotent, PUT is idempotent
+### Http Method/Verbs - 
+- POST & PATCH are both not-idempotent, all others are idempotent.
+- Crete - POST/PUT - Post is not-idempotent, PUT is idempotent
 - Read - GET - Idempotent
-- Update - PUT/PATCH - PUT is idempotent, Patch is not idempotent
+- Update - PUT/PATCH - PUT is idempotent, Patch is not-idempotent
 - Delete - DELETE  - Idempotent
+- HEAD - Idempotent - same as GET but only returns headers, not the body. It is used to check if a resource exists and to get metadata about the resource.
+- OPTIONS - Idempotent - used to describe the communication options for the target resource. It is used to check what HTTP methods are supported by the server for a specific resource.
 
 ##### Post vs Put -
 * Post - id generated by server, new resource created. Put - id provided by client, resource updated.
@@ -192,11 +203,23 @@ The BitTorrent protocol can be used to reduce the server and network impact of d
 * Query parameter - /users?name=kapil - name is query parameter
 * Payload - data sent in body of request
 
+
+```
+* Real API Example (REST)
+
+GET     /users/123         → Get user with ID 123  
+POST    /users             → Create a new user  
+PUT     /users/123         → Replace user 123  
+PATCH   /users/123         → Update part of user 123  
+DELETE  /users/123         → Delete user 123
+```
+
+
 ### HTTP request headers
 
-HTTP headers contain text information stored in key-value pairs, and they are included in every HTTP request (and response, more on that later). These headers communicate core information, such as what browser the client is using what data is being requested.
+HTTP request headers are key-value pairs sent from the client (like a browser or app) to the server, giving extra context about the request — such as who’s sending it, what format is expected, and more
 
-![http-headers](https://www.cloudflare.com/img/learning/ddos/glossary/hypertext-transfer-protocol-http/http-request-headers.png)
+![img.png](img.png)
 
 Some common headers are:
 * Host - The host header specifies the domain name or IP address of the server receiving the request.
@@ -204,17 +227,31 @@ Some common headers are:
 * Accept - The Accept header is used to specify what content types the client is willing to accept.
 * Connection - The Connection header is used to control whether the connection should be closed after the request is complete.
 
+```angular2html
+Example Request with Headers
+
+GET /api/user HTTP/1.1
+Host: example.com
+User-Agent: Mozilla/5.0
+Accept: application/json
+Authorization: Bearer eyJhbGciOi...
+
+```
+
 See a complete list of HTTP headers [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers).
 
 ##### HTTP status codes
 
 HTTP status codes are 3-digit codes most often used to indicate whether an HTTP request has been successfully completed. Status codes are broken into the following 5 blocks:
 
-1. 1xx Informational
-2. 2xx Success
-3. 3xx Redirection
-4. 4xx Client Error
-5. 5xx Server Error
+| Code Range | Category      | Description                                         |
+| ---------- | ------------- | --------------------------------------------------- |
+| **1xx**    | Informational | Request received, continuing process                |
+| **2xx**    | Success       | The request was successfully received and processed |
+| **3xx**    | Redirection   | Further action needs to be taken                    |
+| **4xx**    | Client Error  | The request has bad syntax or cannot be fulfilled   |
+| **5xx**    | Server Error  | Server failed to fulfill a valid request            |
+
 
 For example, a status code of 200 indicates that the request has been successfully completed.
 On the other hand, a status code of 404 indicates that the requested resource was not found.
@@ -223,7 +260,6 @@ Find a list of all HTTP status codes [here](https://developer.mozilla.org/en-US/
 ##### HTTP response headers
 A response header is an HTTP header that can be used in an HTTP response and that doesn't relate to the content of the message. Response headers, like Age, Location or Server are used to give a more detailed context of the response.
 
-![http-headers](https://www.cloudflare.com/img/learning/ddos/glossary/hypertext-transfer-protocol-http/http-response-headers.png)
 
 Some common response headers are:
 * Server - The Server header specifies the software used to handle the request.
@@ -232,8 +268,51 @@ Some common response headers are:
 * Content-Encoding - The Content-Encoding header specifies the encoding used for the response body.
 * Keep-Alive - The Keep-Alive header specifies the period of time that the connection should be kept alive.
 
-### htttps://Httptoolkit.com - to see the request and response of the network.
+### https://Httptoolkit.com - to see the request and response of the network.
 
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+
+# 🌐 Most Common HTTP Status Codes
+HTTP status codes are standardized three-digit responses from a server indicating the result of a client’s request.
+---
+## 🔵 1xx – Informational
+| Code | Meaning             | Description                                               |
+|------|---------------------|-----------------------------------------------------------|
+| 100  | Continue            | The initial part of a request was received; continue     |
+
+## ✅ 2xx – Success
+
+| Code | Meaning     | Description                                           |
+|------|-------------|-------------------------------------------------------|
+| 200  | OK          | The request succeeded and the response contains data |
+
+## 🔁 3xx – Redirection
+
+| Code | Meaning            | Description                                              |
+|------|--------------------|----------------------------------------------------------|
+| 301  | Moved Permanently  | Resource has permanently moved to a new URL             |
+
+## ❌ 4xx – Client Errors
+| Code | Meaning            | Description                                            |
+|------|--------------------|--------------------------------------------------------|
+| 400  | Bad Request        | The server cannot process the malformed request        |
+| 401  | Unauthorized       | Authentication is required or failed                   |
+| 403  | Forbidden          | Authenticated, but not allowed to access the resource  |
+| 404  | Not Found          | The requested resource doesn't exist                   |
+| 429  | Too Many Requests  | Client sent too many requests in a short time          |
+
+## ⚠️ 5xx – Server Errors
+| Code | Meaning               | Description                                                |
+|------|-----------------------|------------------------------------------------------------|
+| 500  | Internal Server Error | Generic server-side error                                  |
+| 502  | Bad Gateway           | Invalid response from an upstream server                   |
+| 503  | Service Unavailable   | Server is temporarily down (e.g., maintenance, overload)   |
+| 504  | Gateway Timeout       | Upstream server failed to respond in time                  |
+
+
+> 📝 *Tip: Use status codes consistently in REST APIs for better client-server communication.*
 
 
 
@@ -243,15 +322,36 @@ Some common response headers are:
   * TCP (Transmission Control Protocol) - connection-oriented protocol that provides reliable data transfer. It ensures that data is delivered in the correct order and without errors. TCP is used for applications that require high reliability, such as web browsing, email, and file transfer.
   * UDP (User Datagram Protocol) - connectionless protocol that provides fast data transfer but does not guarantee delivery. or especially time-sensitive transmissions such as online gaming, video streaming, video playback or DNS lookups. UDP is used for applications that require speed and efficiency. 
 
+
+
+| Feature            | **TCP (Transmission Control Protocol)**              | **UDP (User Datagram Protocol)**               |
+|--------------------|------------------------------------------------------|------------------------------------------------|
+| **Connection**     | Connection-oriented: establishes a session           | Connectionless: sends data without setup       |
+| **Reliability**    | Reliable: ensures delivery with acknowledgment       | Unreliable: no guarantee of delivery           |
+| **Ordering**       | Guarantees delivery order of packets                 | No ordering guarantees                         |
+| **Error control ** | Yes, with retransmissions on failure                 | Yes, but no retransmission or recovery         |
+| **Speed**          | Slower (due to connection setup and reliability)     | Faster (minimal overhead)                      || 
+| **Use Cases**      | Web, email, file transfer (HTTP, SMTP, FTP)          | Streaming, DNS, gaming, VoIP                   |
+| **Flow Control**   | Yes: prevents sender from overwhelming receiver      | No                                             |
+
  
-* 3 way handshake - defined set of steps that takes place in the TCP for creating a secure and reliable communication link and also closing it
-    * SYN - The client sends a SYN packet to the server to initiate a connection.
-    * SYN-ACK - The server responds with a SYN-ACK packet to acknowledge the request.
-    * ACK - The client sends an ACK packet to confirm the connection.
-    * The connection is now established, and data can be transmitted between the client and server.
+* 3 way handshake - is a method used in TCP to establish a reliable connection between a client and a server before data transmission begins.
+  1. **SYN (synchronize)** – Client sends a request to start communication.
+  2. **SYN-ACK (synchronize-acknowledge)** – Server acknowledges and replies.
+  3. **ACK (acknowledge)** – Client acknowledges the server response.
 
+```
+| Step | Sender  | Flags     | Description                          |
+|------|---------|-----------|--------------------------------------|
+| 1    | Client  | SYN       | Client initiates connection          |
+| 2    | Server  | SYN + ACK | Server acknowledges and responds     |
+| 3    | Client  | ACK       | Client acknowledges server’s reply   |
+```
+After this handshake, a reliable TCP connection is fully established and data can be transferred between client and server.
+Same TCP connection can be use for multiple HTTP/HTTPS requests.
 
-* Cookies - HTTP is a stateless protocol, meaning that the server does not maintain any state. To provide a better user experience, such as remembering if user is logged in, state is required to be maintained. Cookies are a way to achieve state in HTTP request and response cycles.
+### Cookies 
+- HTTP is a stateless protocol, meaning that the server does not maintain any state. To provide a better user experience, such as remembering if user is logged in, state is required to be maintained. Cookies are a way to achieve state in HTTP request and response cycles.
     * A cookie is a small piece of data stored on the client's computer by the web server. It is sent back to the server with every request made by the client.
     * Cookies are used to store information about the user, such as login credentials, shopping cart items, or user preferences.
     * Cookies can be set with an expiration date, after which they are automatically deleted.    
@@ -259,7 +359,6 @@ Some common response headers are:
 
 The server is responsible for creation of the cookies. A web server specifies a cookie to be stored by sending an HTTP header called Set-Cookie
 
-![Cookies](https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/HTTP_cookie_exchange.svg/1280px-HTTP_cookie_exchange.svg.png)
 
 ### Request and response lifecycle
 1. The browser sends its first HTTP request for the homepage of the `www.slow.com` website
@@ -280,9 +379,10 @@ The server is responsible for creation of the cookies. A web server specifies a 
     ...
     ```
 
-   The server's HTTP response contains the contents of the website's homepage. But it also instructs the browser to set two cookies. The first, `theme`, is considered to be a session cookie since it does not have an Expires or Max-Age attribute. Session cookies are intended to be deleted by the browser when the browser closes.
+   The server's HTTP response contains the contents of the website's homepage. But it also instructs the browser to set two cookies. 
+   * Session cookie - `theme`, is considered to be a session cookie since it does not have an Expires or Max-Age attribute. Session cookies are intended to be deleted by the browser when the browser closes.
 
-   The second, `sessionToken`, is considered to be a persistent cookie since it contains an Expires attribute, which instructs the browser to delete the cookie at a specific date and time
+   * Persistent cookie - `sessionToken`, is considered to be a persistent cookie since it contains an Expires attribute, which instructs the browser to delete the cookie at a specific date and time and remains even after browser is closed until time expire.
 
 
 3. Next, the browser sends another request to visit the spec.html page on the website. This request contains a Cookie header field, which contains the two cookies that the server instructed the browser to set:
@@ -301,24 +401,42 @@ The server is responsible for creation of the cookies. A web server specifies a 
 * The Domain Name System (DNS) is the phonebook of the Internet. translates domain names to IP addresses. The Domain Name System is the hierarchical and decentralized naming system used to identify computers on the internet.
 
 
+* 🔁 DNS Lookup Flow - 
+
+![img_1.png](img_1.png)
+
+---
+
+* 🧠 DNS Components
+
+| Component             | Description                                             |
+|-----------------------|---------------------------------------------------------|
+| **Root Server**       | Knows where TLD servers are                             |
+| **TLD Server**        | Knows where domain is hosted                            |
+| **Authoritative DNS** | Provides final IP address                               |
+| **Recursive Resolver**| Queries and returns result to the user                  |
+
+---
+
+* 📦 Common DNS Record Types
+
+| Record  | Use                         | Example                          |
+|---------|-----------------------------|----------------------------------|
+| A       | Domain → IPv4               | example.com → 93.184.216.34      |
+| AAAA    | Domain → IPv6               |                                  |
+| CNAME   | Alias to another domain     | www → example.com                |
+| MX      | Mail server info            |                                  |
+| NS      | Authoritative name servers  |                                  |
+| TXT     | Misc. text (e.g., SPF, DKIM)|                                  |
+
+
+
 ![DNS-H](https://www.cloudflare.com/img/learning/dns/glossary/dns-root-server/dns-root-server.png)
 
 * Recursive resolver - The recursive resolver is a server that receives DNS queries from clients and resolves them by querying the DNS hierarchy. The recursive resolver is responsible for finding the IP address associated with a domain name.
 * Root DNS servers - The root server is the first step in translating (resolving) human-readable hostnames into IP addresses. These servers are located around the world and are responsible for delegating DNS requests to Top Level Domain (TLD) nameservers.
 * TLD (Top Level Domain) - The highest level of domain names in the root zone of the Domain Name System of the Internet. For example, .com, .org, .net, .gov, .edu, etc.
 * Authoritative nameserver - The authoritative nameserver is the DNS server that holds the DNS records (A, CNAME, MX, TXT, etc.) for a domain. This server responds to DNS queries for the domain it is authoritative for.
-
-##### Steps in the DNS query process
-![DNS-steps](https://www.cloudflare.com/img/learning/dns/what-is-dns/dns-lookup-diagram.png)
-
-1. A user types `slow.com` into a web browser and the query travels into the Internet and is received by a DNS recursive resolver.
-2. The resolver then queries a DNS root nameserver (.).
-3. The root server then responds to the resolver with the address of a Top Level Domain (TLD) DNS server (such as .com or .net), which stores the information for its domains. When searching for slow.com, our request is pointed toward the .com TLD.
-4. The resolver then makes a request to the .com TLD.
-5. The TLD server then responds with the IP address of the domain’s nameserver, slow.com.
-6. Lastly, the recursive resolver sends a query to the domain’s nameserver.
-7. The IP address for slow.com is then returned to the resolver from the nameserver.
-8. The DNS resolver then responds to the web browser with the IP address of the domain requested initially.
 
 
 ### SSL Offloading / SSL Termination  

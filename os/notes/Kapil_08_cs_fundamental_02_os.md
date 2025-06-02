@@ -87,6 +87,9 @@ Types of Multiprogramming/Multi-tasking/Multi-processing system -
 
 --
 
+
+--------------------------------------------------------------------------------------------------------
+
 # 02-round-robin-threads.md
 
 * Round Robin Scheduling - is a preemptive scheduling algorithm that assigns a fixed time slice (quantum) to each process in a circular queue. The time slice is usually a small value like 10ms. When a process's time slice expires, it is moved to the back of the queue, allowing the next process to run. RR ensures fair CPU allocation and prevents starvation by giving each process a chance to execute.
@@ -215,6 +218,9 @@ Chrome and Firefox now both support multithreading, but they do it in different 
 
 
 --
+
+
+--------------------------------------------------------------------------------------------------------
 
 # 03-thread-synchronisation.md & 03-threads-synchronisation.md
 
@@ -424,6 +430,9 @@ Both methods are used to start asynchronous tasks in Java, but they differ in wh
 
 --
 
+
+--------------------------------------------------------------------------------------------------------
+
 # 04-synchronisation.md
 
 ### Characteristics of synchronisation problems
@@ -456,6 +465,10 @@ Both methods are used to start asynchronous tasks in Java, but they differ in wh
 
 
 --
+
+
+
+--------------------------------------------------------------------------------------------------------
 
 # 04-memory-management.md
 
@@ -1019,3 +1032,8 @@ public class ManualThreadPool {
 | Signal mechanism     | `countDown()`                          | `release()`                                 |
 | Typical use case     | Task coordination                      | Resource throttling / concurrency control   |
 
+### LRU Cache MRC Cache - implementation 
+https://chatgpt.com/c/682b3d45-e668-8005-b306-047b4e9a1fc4
+
+
+--------------------------------------------------------------------------------------------------------
