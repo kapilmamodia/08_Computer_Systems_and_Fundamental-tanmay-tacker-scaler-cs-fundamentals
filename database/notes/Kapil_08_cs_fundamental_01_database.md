@@ -10,39 +10,167 @@
 
 
 * Non-relational databases --> NoSQL databases, e.g MongoDB, CouchDB, Cassandra, Redis, etc. 
-                        -Do not use tables for storing data, and do not follow the strict schema structure of relational databases.
-                        -Document databases, key-value stores, wide-column stores, and graph databases are all types of NoSQL databases.
-                        -Data stored in JSON, XML, BSON (Binary  json) etc.
-                        -NoSQL databases are highly scalable, and are designed to handle large data sets distributed across many servers.
-                        -NoSQL databases are increasingly used in big data and real-time web applications.
+
+        -Do not use tables for storing data, and do not follow the strict schema structure of relational databases.
+        -Document databases, key-value stores, wide-column stores, and graph databases are all types of NoSQL databases.
+        -Data stored in JSON, XML, BSON (Binary  json) etc.
+        -NoSQL databases are highly scalable, and are designed to handle large data sets distributed across many servers.
+        -NoSQL databases are increasingly used in big data and real-time web applications.
 
 
-    Columnar databases --> store data in columns rather than rows, e.g Maria DB, Cassandra, HBase, influx DB, Vertica, etc.
-                            Columnar databases are designed to store, retrieve, and manage data in columns rather than rows.
-                            Columnar databases are ideal for analytics queries that involve aggregating values for a subset of columns. 
-    
+    Key-value stores --> store data in key-value pairs, e.g Redis, Amazon DynamoDB, Riak, BigTable etc.
+                            Key-value stores are ideal for applications that require high-speed data access.
+                            Key-value stores are often used for caching, session storage, user preference, and real-time analytics.
+                            - Fast O(1) read/write
+                            - Scalable and distributed easily
+
+    Document databases --> store emi-structured data as documents (JSON  or BSON), extension to key-value database. e.g MongoDB, CouchDB, Amazon DocumentDB etc.
+                         Use case -- Content management, product catalogs, user profiles, logging.   
+
+    Columnar databases --> Stores data column-by-column instead of row-by-row., e.g Maria DB, Apache  Cassandra, Apache  HBase, Amazon Redshift, ClickHouse, Google BigQuery, Vertica etc.
+    Columnar databases are designed to store, retrieve, and manage data in columns rather than rows.   
+    Use case - 	Analytics, time-series-like queries, data warehousing.
+    Excellent for aggregate queries and OLAP system - Online Analytical Processing - analyzing large volumes of historical data to gain insights, such as financial forecasting or sales reporting, 
+    Are optimized for complex queries and aggregations. 
+
+
+
     Graph databases --> store data in graph structures, e.g Neo4j, Amazon Neptune, OrientDB, etc.
                             Graph databases are used to store information about networks, such as social connections.
                             Graph structure is made up of nodes, edges, and properties.  
-    
-    Key-value stores --> store data in key-value pairs, e.g Redis, DynamoDB, Riak, etc.
-                            Key-value stores are ideal for applications that require high-speed data access.
-                            Key-value stores are often used for caching, session storage, and real-time analytics.
 
-    Document databases --> store data in documents,extension to key-value database. e.g MongoDB, CouchDB, etc.
-
-    Time-series databases --> store data with timestamps, e.g InfluxDB, Prometheus, etc.
+    Time-series databases --> store data with timestamps, e.g InfluxDB, TimescaleDB (PostgreSQL extension), Prometheus, etc.
 
     In-memory databases --> store data in memory, e.g Redis, Memcached, etc.
 
 
-* SQL (Structured Query Language) --> language used to communicate with a database, to manage and manipulate data in a relational database.
-    Relation -- table
-    Attribute -- column
-    Tuple -- row
+| DB Type     | Schema Flexibility | Query Capabilities        | Write Performance | Best For                    |
+| ----------- | ------------------ | ------------------------- | ----------------- | --------------------------- |
+| Key-Value   | None               | Very limited              | Very fast         | Cache, lookup tables        |
+| Document    | High               | Strong (esp. nested)      | Good              | Product catalogs, user data |
+| Columnar    | Rigid (columnar)   | Aggregations only         | Good in batches   | Analytics, reporting        |
+| Graph       | Moderate           | Traversals, pattern match | Depends           | Social graphs, fraud        |
+| Time Series | Medium             | Time-based queries        | Optimized         | Monitoring, IoT             |
 
-   Degree --> number of attributes in a relation
-   Cardinality -->  number of tuples in a relation
+
+### CHat gpt important database - https://chatgpt.com/c/6841d957-f984-8005-b892-9b71484cdfcb
+
+
+### Database Use Case Cheat Sheet for System Design Interviews
+
+A quick reference guide mapping **use cases to database types** — with explanations for what to say in interviews.
+
+---
+
+🔹 1. Real-Time Session / Cache Store
+
+- ✅ **Key-Value Store** (Redis, Memcached)
+- 🔸 **Use Cases**: Caching, user sessions, auth tokens, leaderboard scores
+- 🧠 **Interview Tip**:
+  > "Redis is ideal due to its low latency and TTL support for session expiration. Key-based access gives constant-time performance."
+
+---
+
+🔹 2. Product Catalog / User Profiles
+
+- ✅ **Document DB** (MongoDB, Couchbase)
+- 🔸 **Use Cases**: E-commerce products, user settings, IoT device metadata
+- 🧠 **Interview Tip**:
+  > "Schema flexibility allows modeling varied product types or user settings. No need for costly migrations."
+
+---
+
+🔹 3. Analytics & Reporting
+
+- ✅ **Columnar DB** (ClickHouse, Redshift, Apache Druid)
+- 🔸 **Use Cases**: Business Intelligence (BI), financial reports, dashboards
+- 🧠 **Interview Tip**:
+  > "Column stores read only queried columns and compress well — making them ideal for large-scale aggregation workloads."
+
+---
+
+🔹 4. Time-Based Events / Metrics / Logs
+
+- ✅ **Time Series DB** (InfluxDB, TimescaleDB, Prometheus)
+- 🔸 **Use Cases**: Monitoring, logs, sensor data, telemetry
+- 🧠 **Interview Tip**:
+  > "Optimized for inserts and time-window queries. Supports retention policies, rollups, and downsampling."
+
+---
+
+🔹 5. Social Networks / Relationship Graphs
+
+- ✅ **Graph DB** (Neo4j, ArangoDB, JanusGraph)
+- 🔸 **Use Cases**: Friends, followers, fraud detection, device graphs
+- 🧠 **Interview Tip**:
+  > "Graph DBs support fast traversal of complex relationships, e.g., shortest path or friend-of-a-friend queries."
+
+---
+
+ 🔹 6. Orders / Transactions / Billing
+
+- ✅ **Relational DB** (PostgreSQL, MySQL, Oracle)
+- 🔸 **Use Cases**: Orders, payments, inventory, invoicing
+- 🧠 **Interview Tip**:
+  > "ACID guarantees ensure consistency and reliability. Good for normalized schemas and multi-row transactions."
+
+---
+ 
+🔹 7. Full-Text Search
+
+- ✅ **Search Engine** (Elasticsearch, OpenSearch)
+- 🔸 **Use Cases**: Product search, log search, autocomplete
+- 🧠 **Interview Tip**:
+  > "Built for text indexing with tokenization, stemming, and relevancy scoring. Outperforms RDBMS for search."
+
+---
+
+ 🔹 8. Hierarchical / Tree Data
+
+- ✅ **Document DB** or **Graph DB**
+- 🔸 **Use Cases**: Category trees, file systems, org charts
+- 🧠 **Interview Tip**:
+  > "Choose Document DB for nested documents, Graph DB if traversal and relationships are complex and frequent."
+
+---
+
+📦 Summary Table
+
+| Use Case                        | Best DB Type      | Examples                        |
+|---------------------------------|-------------------|----------------------------------|
+| Real-time cache/session         | Key-Value         | Redis, Memcached                 |
+| Flexible profile/catalog        | Document          | MongoDB, Couchbase               |
+| Large-scale analytics           | Columnar          | ClickHouse, Redshift             |
+| IoT, logs, telemetry            | Time Series       | InfluxDB, TimescaleDB            |
+| Relationship data               | Graph             | Neo4j, ArangoDB                  |
+| Transactional records           | Relational (SQL)  | PostgreSQL, MySQL                |
+| Full-text / fuzzy search        | Search Engine     | Elasticsearch, OpenSearch        |
+| Tree/hierarchy modeling         | Document / Graph  | MongoDB (nested), Neo4j (graph)  |
+
+---
+
+🧠 Interview Pattern to Use:
+
+```text
+1. Break down requirements:
+   - Does it need fast read/write? Flexible schema? Relationships? Time-series?
+2. Map each part to a specialized database:
+   - "I'd use Redis for caching, MongoDB for flexible schema, ClickHouse for BI, etc."
+3. Justify with performance, scalability, or operational tradeoffs.
+4. Mention polyglot persistence if multiple DBs are ideal.
+
+```
+---
+
+
+* SQL (Structured Query Language) → language used to communicate with a database, to manage and manipulate data in a relational database.
+
+                Relation -- table
+                Attribute -- column
+                Tuple -- row
+
+   Degree → number of attributes in a relation
+   Cardinality →  number of tuples in a relation
     
         Super Key --> set of attributes that can uniquely identify a tuple in a relation 
             Multiple super keys can be present in a relation
@@ -67,17 +195,17 @@
 
 # 02-schema-design.pdf
 
-* Database Schema --> A schema is a blueprint of a database., structure that represents the logical view of the entire database
+* Database Schema → A schema is a blueprint of a database., structure that represents the logical view of the entire database
         Schema is a collection of database objects, including tables, views, indexes, etc.
 
 
-* SQL Data Types --> specifies the type of data of a column in a table
+* SQL Data Types → specifies the type of data of a column in a table
 
        * String --> CHAR (Fixed-length) , VARCHAR(Variable-length) , TEXT(Variable-length), BINARY, BLOB, ENUM, SET
                    char(4) ---(0-255) 4 character is max can be stored here
                    Varchar(10) -- (0 - 65353) initial allotment for performance --> it stored run length encoding, first one or two bytes stores length of string to optimize performance
                    Varchar(MAX) -- still initial allotment will happen for performance.
-                   Text -- (Variable-length) indexing not tsraight forwrad (Full type index can do that, learn later), TinyText (0- 65365),  MediumText (64KB), LongText (4 GH)                           
+                   Text -- (Variable-length) indexing not sraight forwrad (Full type index can do that, learn later), TinyText (0- 65365),  MediumText (64KB), LongText (4 GB)                           
        * Numeric --> 
                
           * Integer --> 
@@ -96,19 +224,19 @@
           * Spatial Data Types --> GEOMETRY, POINT, LINESTRING, POLYGON, GEOMETRYCOLLECTION, etc.
 
                 
-* Schema Design --> Case Study (Important) --> **02-schema-design.pdf** go over in this document.
+* Schema Design → Case Study (Important) → **02-schema-design.pdf** go over in this document.
                 All the values in relational database columns should be atomic -- should not be collection of values. How to join table on these columns.
-                Cardinality --> one-to-one(1:1), one-to-many(1:m), many-to-many (m:n), it tells which table to keep attribute/column foreign key
+                Cardinality → one-to-one(1:1), one-to-many(1:m), many-to-many (m:n), it tells which table to keep attribute/column foreign key
           
 
-* https://diagramplus.com/    --> tool to create ER diagram
+* https://diagramplus.com/    → tool to create ER diagram
 
 
-* Data integrity database--> is the overall accuracy, completeness, and consistency of data the maintenance of over its entire life-cycle.
-    * Entity Integrity --> primary key should not be null, row should be uniquely identified.
-    * Referential Integrity --> foreign key should be null or should be present in the parent table.
-    * Domain Integrity --> data type, range, and format of data should be correct.
-    * User-defined Integrity --> business rules, constraints, and triggers.
+* Data integrity database→ is the overall accuracy, completeness, and consistency of data the maintenance of over its entire life-cycle.
+    * Entity Integrity → primary key should not be null, row should be uniquely identified.
+    * Referential Integrity → foreign key should be null or should be present in the parent table.
+    * Domain Integrity → data type, range, and format of data should be correct.
+    * User-defined Integrity → business rules, constraints, and triggers.
 
 ----------------------------------------------------------------------------------------------------------------------------------- 
 
@@ -116,7 +244,7 @@
 
 # 03-normalisation-acid.md
 
-* Data Anomalies --> data inconsistencies that can arise in a database due to poor database design.
+* Data Anomalies → data inconsistencies that can arise in a database due to poor database design.
 
 
     * Insertion Anomaly --> inability to add data to the database due to missing data in other tables.
@@ -127,19 +255,19 @@
                         and improving data integrity by dividing large tables into smaller tables and defining relationships between them.
                         Data anomalies can be avoided by normalizing the database.
 
-  * Normal forms --> set of rules that define the structure of a relational database.
-    * 1NF (First Normal Form) --> least strick, each column should have atomic data types, each column should have a unique name, each column should have a unique data type. Create separate mapping table to fix this.
-    * 2NF (Second Normal Form) --> more optimize, 1NF + all non-key attributes are fully functional dependent on the primary key.There should be no partial dependencies. Move non-key attributes (partial dependencies) to a separate table to fix this.
-    * 3NF (Third Normal Form) --> 2NF + all non-key attributes are non-transitively dependent on the primary key.It should also not contain any transitive dependencies.Move transitive dependencies to a separate table to fix this.
-    * BCNF (Boyce-Codd Normal Form) --> 3NF + for every functional dependency X -> Y, X should be a primary key.
+  * Normal forms → set of rules that define the structure of a relational database.
+    * 1NF (First Normal Form) → least strick, each column should have atomic data types, each column should have a unique name, each column should have a unique data type. Create separate mapping table to fix this.
+    * 2NF (Second Normal Form) → more optimize, 1NF + all non-key attributes are fully functional dependent on the primary key.There should be no partial dependencies. Move non-key attributes (partial dependencies) to a separate table to fix this.
+    * 3NF (Third Normal Form) → 2NF + all non-key attributes are non-transitively dependent on the primary key.It should also not contain any transitive dependencies.Move transitive dependencies to a separate table to fix this.
+    * BCNF (Boyce-Codd Normal Form) → 3NF + for every functional dependency X -> Y, X should be a primary key.
 
 
 
-* Relational database - RDBMS --> follow normalization principles. This is consistent database. Avoid Data Anomalies through Normalisation. 
-* Non-relational - No-SQL --> denormalized data, data redundancy, and duplication are allowed. It doesn't care about database Anomalies. This is eventual consistent.
+* Relational database - RDBMS → follow normalization principles. This is consistent database. Avoid Data Anomalies through Normalisation. 
+* Non-relational - No-SQL → denormalized data, data redundancy, and duplication are allowed. It doesn't care about database Anomalies. This is eventual consistent.
 
 
-* Functional Dependency --> relationship between two attributes, typically between the primary key and non-key attributes.
+* Functional Dependency → relationship between two attributes, typically between the primary key and non-key attributes.
 
 
     A functional dependency is denoted by X -> Y, where X determines Y.
@@ -181,7 +309,7 @@
 # 04-transactions-indexes.md
 
 * Indexes --> data structure that improves the speed of data retrieval operations on a database table at the cost of additional writes and storage space.
-    * Clustered Index --> determines the physical order of data in a table, and the table can have only one clustered index.
+    * Clustered Index → determines the physical order of data in a table, and the table can have only one clustered index.
     * Non-clustered Index --> does not determine the physical order of data in a table, and the table can have multiple non-clustered indexes.
     * Composite Index --> index that consists of more than one column.
     * Unique Index --> index that enforces the uniqueness of values in a column or a set of columns.
