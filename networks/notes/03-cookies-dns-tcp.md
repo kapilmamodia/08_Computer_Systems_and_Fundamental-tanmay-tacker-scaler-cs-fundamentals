@@ -1,4 +1,6 @@
 # Cookies, DNS and TCP
+
+
 ## Agenda
 * What are cookies, and how do they work?
 * What is DNS, how is it structured?
@@ -72,7 +74,7 @@ When a cookie is present, and the optional rules allow, the cookie value is sent
     This way, the server knows that this HTTP request is related to the previous one.
 
 ---
-## DNS
+### DNS
 > The Domain Name System (DNS) is the phonebook of the Internet. Humans access information online through domain names, like nytimes.com or espn.com. Web browsers interact through Internet Protocol (IP) addresses. DNS translates domain names to IP addresses so browsers can load Internet resources.
 
 ![DNS-H](https://www.cloudflare.com/img/learning/dns/glossary/dns-root-server/dns-root-server.png)

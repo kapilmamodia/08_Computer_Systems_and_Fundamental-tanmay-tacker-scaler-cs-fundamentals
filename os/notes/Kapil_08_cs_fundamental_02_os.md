@@ -2,12 +2,14 @@
 
 ### What is an Operating System (OS)? 
 - An operating system (OS) is software that manages computer hardware and software resources while providing essential services for computer programs. It acts as an intermediary between hardware and applications, enabling user interaction with the computer.
-  * Linux - different  distribution :- Ubunto, Kali
-  * Windows - different  distribution :- - windows 10, 11
-  * Unix
-  * Android
-  * MacOS  
-  * iOS
+  * Unix (old one) -- Linux is a Unix-like operating system, but it is not derived from the original Unix codebase. It was created as a **free and open-source alternative to Unix**, and it shares many of the same design principles and features.
+  * Linux - different  distribution :- fedora, Ubuntu, debrian, Kali 
+  * Windows - different  distribution :- - windows 10, 11  
+  * Android - works over Linux
+  * MacOS - Macbook, works over Unix
+  * iOS - Iphone, works over Unix
+
+* **Kernel** - core of the OS, have all the configuration of the OS.
 
 
 * Functions of an Operating System - 
@@ -27,12 +29,12 @@ However, for developers an operating system is-
 
 
 
-* Types of Operating Systems - Uniprogramming vs Multiprogramming/Multi-tasking/Multi-processing 
+* **Types of Operating Systems** - Uniprogramming vs Multi-programming (Unix terminology)/Multi-tasking (windows terminology)/Multi-processing system
   *   Uniprogramming is a simple system where only one program can run at a time - e.g. MS-DOS, ATM, washing machine, watch
   *   Multiprogramming/Multi-tasking/Multi-processing - on the other hand, allows multiple programs to run concurrently by sharing the CPU and other resources. Multiprogramming increases system efficiency and throughput by overlapping CPU and I/O operations e.g. Laptop, Mobile, Servers.
 
 
-Types of Multiprogramming/Multi-tasking/Multi-processing system - 
+**Types of Multi-programming** (Unix terminology)/Multi-tasking (windows terminology)/Multi-processing system - 
 
     * 1. Multi users vs single user -
       * Single-user operating systems are designed for a single user and are used on personal computers. Examples include - personal laptops, windows.
@@ -42,33 +44,102 @@ Types of Multiprogramming/Multi-tasking/Multi-processing system -
         * Preemptive scheduling allows the OS to interrupt a running process and allocate the CPU to another process based on priority or time quantum. 
         * Non-preemptive scheduling, on the other hand, does not interrupt a running process until it completes its execution or voluntarily yields the CPU.
 
+
+![img.png](images/OS_program.png)
+
+![img.png](images/CPU_run_in_2_Program_mode.png)
+
+
+### Fork(Unix) / Spawn(windows) - basic for multithreading and multiprocessing
+- Fork is a **system call (provided by OS)** that creates **a new process by duplicating the existing proce**ss. The new process is called the **child process**, and the existing process is called the **parent process**. 
+- The child process is an **exact copy of the parent process**, except for the returned value. The fork system call returns a value of 0 to the child process and returns the process ID of the child process to the parent process.
+- when **fork** is being called then **CPU run in kernal mode** and create new process. The new process is created by **copying the address space of the parent process**. This means that the child process **has its own memory space**, but it **shares the same code and data as the parent process**. The child process can modify its own memory space without affecting the parent process.
+
+![fork_example.png](images/fork_example.png)
+
+![img.png](images/fork_example_further.png)
+
+* if there are n forks then there will be 2^n processes created. For example, if there are 3 forks, then there will be 2^3 = 8 processes created.
+* If there are n forks, then 2^n -1 child processes will be created. For example, if there are 3 forks, then 2^3 -1 = 7 child processes will be created.
+* fork is **non-blocking system call (can use another wait(system call) for blocking**), which means that the parent process will wait for the child process to complete before it continues execution. This is because the parent process needs to know the process ID of the child process in order to manage it.
+
+
 ### Process 
 - When an application is installed on a system, it is stored as a disk/file. When the application is run, the operating system loads it into memory (RAM) and creates a process, which is an active instance of the application/program. 
     *   Each process has its own memory space and is managed independently. The operating system uses a Process Control Block (PCB) to store essential information about each process, such as its ID, state, priority, program counter, and CPU registers. The PCB acts as an identification card for processes, helping the OS manage them efficiently.
     *   The operating system assigns CPU time to processes as needed, especially for tasks like input/output operations, which only require the CPU at specific times. This ensures efficient multitasking and resource utilization.
+    *  **program counter** that contains the **address of the next instruction to be executed**. It is used to keep track of the execution of a process. When a process is created, the program counter is set to the address of the first instruction of the process. As the process executes, the program counter is updated to point to the next instruction to be executed.
+    *  **CPU registers** are used to store the current state of the process. They are used to store the values of variables etc.
 
 
-    * Types of Processes - 
+    * Types of Processes - I/O is always slower than CPU because of wait time.
       * I/O-Bound Process: These processes spend most of their time waiting for input/output operations, like reading data from a disk/file or interacting with external devices.
       * CPU-Bound Process: These processes spend most of their time executing instructions, often involving intensive computations.
 
-#### Burst time -- time taken by process to complete, it's mostly approximation based on previous completion time.
-
 ![Process Control Block](https://scaler.com/topics/images/structure-of-process-control-block.webp)
+![img.png](images/Process_lifecycle.png)
+
+#### Terminologies related to processes -
+
+* **Interrupt** - An interrupt is a signal sent to the CPU by hardware or software indicating an event that needs immediate attention. When an interrupt occurs, the CPU temporarily halts its current execution.
+* **Throughput** - The number of processes completed per unit time.
+* **starvation** - don't get CPU for a long time because of other processes with higher priority or scheduling algorithm
+
+
+* **Arrival time** - time at which process arrives in the ready queue.
+* **Response time** - process get CPU execution first time.
+* **wait time** - time for which process waits in the ready queue before it gets the CPU for execution.
+    - due to I/O 
+    - no CPU available
+* **Burst time** -- amount of **CPU time taken by process to complete**, it's mostly approximation based on previous completion time. There are many algorithms to predict the burst time of a process.
+    - CPU tries to predict the burst time of a process based on its previous completion time.
+* **I/O Burst time** -- amount of time taken by process to complete I/O operations, it's mostly approximation based on previous completion time.
+* **completion time** - time at process completes its execution (Burst time + any other wait time).
+
+* **trun-around time** - time taken by process to complete its execution after it arrives in the ready queue. It is calculated as **completion time - arrival time**.
+
+* **Deadline** - time by which process should complete its execution. This is used in real-time systems where processes have strict timing requirements.
+   - underrun - complete before deadline
+   - overrun - complete after deadline
 
 ### Scheduling Algorithms - 
-* First-Come, First-Served (FCFS): Non-Preemptive Scheduling- see document (01-os-primer.md) for more info if required.
+
+- **dispatcher** is responsible for managing the execution of processes on the CPU. It decides which process to run next based on the scheduling algorithm being used. It picks process from ready queue and assign it **CPU register** for scheduling. The dispatcher performs context switching, which involves saving the state of the currently running process and loading the state of the next process to be executed.
+
+
+- **context switching** is the process of saving the state of a currently running process and loading the state of the next process to be executed. This is done by the dispatcher when it decides to switch from one process to another. Context switching involves saving the program counter, CPU registers, and other relevant information about the current process so that it can be resumed later.Context Switching is costly.
+
+
+- **cpu register** - A CPU register is a small amount of storage available directly on the CPU. It is used to hold data that is being processed by the CPU. Registers are much faster than memory, so they are used to store frequently accessed data and instructions.
+
+![img.png](images/dispatcher_cpu_registers.png)
+![img.png](images/dispatcher_cpu_registers_2.png)
+
+
+
+----
+
+** modern days **(RR + FCFS) are used in combination** to achieve better performance.
+
+![img.png](images/scheduling.png)
+
+* **First-Come, First-Served (FCFS)**: Non-Preemptive Scheduling- see document (**01-os-primer.md**) for more info if required.
   * Advantages - Simple and easy to implement, suitable for long CPU bursts.
   * Disadvantage - lower CPU utilization, poor response time for short processes.     
-* Shortest Remaining Time First (SRTF) - Preemptive scheduling - see document (01-os-primer.md) for more info if required.
+* **Shortest Remaining Time First (SRTF)** - Preemptive scheduling - see document (**01-os-primer.md**) for more info if required.
     * Advantages - Processes are executed faster than SJF, being the preemptive version of it
     * Disadvantage - Context switching is done a lot more times and adds to the more overhead time. It may still lead to starvation and requires the knowledge of process time beforehand. 
-* Round Robin (RR) - Preemptive Scheduling - see document (02-round-robin-threads.md) for more info if required.
+* **Round Robin (RR)** - Preemptive Scheduling - see document (02-round-robin-threads.md) for more info if required. Based on **time quantum** dispatcher choose as **FCFS** after time slice is over.
     * Advantages - Fair CPU allocation, prevents starvation, and ensures each process gets a chance to execute.
     * Disadvantage - High waiting time for processes with long CPU bursts, inefficient for short processes.Context switching.
     * Load balancer uses this algorithm to distribute the load among the servers.
-    * If time quantum (time slices) is more then it will because FCFS.
-* Priority Scheduling
+    * If time quantum (time slices) is more then it will become FCFS.
+* **Priority Scheduling**
+
+
+* OS had m**ultiple queues and based on priority** and each queue have different scheduling algorithm. But this can also lead to **thread starvation** if lower priority queues will get time to execute.
+* **To solve this problem** - mu**lti level feedback queue**. we can use **aging** technique, where the priority of a process is increased. This way, even low priority processes will eventually get a chance to execute.
+![img.png](images/scheduling_2.png)
 
 
 * Why do we need Scheduling Algorithms? - A process requires both CPU and I/O time to complete execution. In multiprogramming systems, the CPU stays active by switching between processes, where one uses the CPU while another waits for I/O. In single-programming systems, CPU remains idle during I/O waits, wasting time.
@@ -83,14 +154,9 @@ Types of Multiprogramming/Multi-tasking/Multi-processing system -
 ------------------------------------------------------------------------------------------------------------------------
 
 
----
-
---
-
-
---------------------------------------------------------------------------------------------------------
-
 # 02-round-robin-threads.md
+
+![img.png](images/program.png)
 
 * Round Robin Scheduling - is a preemptive scheduling algorithm that assigns a fixed time slice (quantum) to each process in a circular queue. The time slice is usually a small value like 10ms. When a process's time slice expires, it is moved to the back of the queue, allowing the next process to run. RR ensures fair CPU allocation and prevents starvation by giving each process a chance to execute.
 
@@ -119,9 +185,9 @@ Threads are used to solve this problem. Threads are used to perform multiple tas
 
 ### Concurrency vs Parallelism
 
-* Concurrent - At the same time, but not necessarily at the same instant. A single core CPU can only execute one thread at a time. But it can switch between threads very quickly. This is called context switching. This is how concurrency is achieved. A single core CPU can have concurrency but not parallelism.
-* Parallel - At the same time and at the same instant. A single core CPU cannot achieve parallelism. It can only achieve concurrency. A multi-core CPU can achieve both concurrency and parallelism.
-* Unicore vs Multicores - Unicore can have concurrency but not parallelism. Multicore can have both concurrency and parallelism.
+* **Concurrent** - At the same time, but not necessarily at the same instant. A single core CPU can only execute one thread at a time. But it can switch between threads very quickly. This is called context switching. This is how concurrency is achieved. A single core CPU can have concurrency but not parallelism.With **hyperthreading** single core cpu and achieve parallelism. 
+* **Parallel** - At the same time and at the same instant. A **single core CPU cannot achieve parallelism**. It can only achieve **concurrency**. A **multi-core CPU can achieve both concurrency and parallelism**.
+* **Unicore vs Multicores** - Unicore can have concurrency but not parallelism. Multicore can have both concurrency and parallelism.
 
 ### Using threads in Java
 
@@ -209,7 +275,9 @@ public class Main {
 ```
 
 ### Comparing Chrome and Firefox
-Chrome and Firefox now both support multithreading, but they do it in different ways. In Chrome, each and every tab you open gets its own content process. Ten tabs, 10 processes. One hundred tabs, 100 processes.  One open tab in Chrome typically consumes hundreds of megabytes of RAM.This approach maximizes perfomance, but you pay a heafty penalty in memory consumption and battery life. Firefox doesn’t take this approach to the problem, but instead spins up to four content process threads by default. In Firefox, the first 4 tabs each use those 4 processes and additional tabs tun using threads within those processes. Multiple tabs within a process share the browser engine that already exists in memory, instead of each creating their own.
+Chrome and Firefox now both support multithreading, but they do it in different ways. 
+- Chrome, each and every tab you open gets its own content process. Ten tabs, 10 processes. One hundred tabs, 100 processes.  One open tab in Chrome typically consumes hundreds of megabytes of RAM.This approach maximizes performance, but you pay a hefty penalty in memory consumption and battery life. 
+- Firefox doesn’t take this approach to the problem, but instead spins up to four content process threads by default. In Firefox, the first 4 tabs each use those 4 processes and additional tabs tun using threads within those processes. Multiple tabs within a process share the browser engine that already exists in memory, instead of each creating their own.
 
 ### Reading List
 
@@ -311,27 +379,60 @@ Chrome and Firefox now both support multithreading, but they do it in different 
 
     A powerful class in Java 8 that represents a future result of an asynchronous computation.
 
+ExecutorService - A low-level API for managing a pool of threads.
     Key Features:
-        asynchronous & Non-blocking computation
-        Chaining: You can chain multiple computations together using methods like thenApply, thenAccept, and thenCompose.
-        Exception handling: Provides methods like exceptionally and handle for error handling.
+        Thread pool management
+        Task submission: submit Runnable or Callable tasks
+        Blocking operations: Methods like get() block until the result is available
+        non-Blocking operations: invokeAll, invokeAny
 
-    * Rule of Thumb
-      * Use ExecutorService when you want low-level control over task submission and threads.
-      * Use CompletableFuture when you want asynchronous, non-blocking, and chainable operations, especially in modern Java (8+).
+ CompletableFuture - A high-level API for building asynchronous, non-blocking, and event-driven application, functional-style programming.
+     Key Features:
+        Non-blocking APIs: thenApply, thenAccept, thenCompose, thenCombine, etc.    
+        Declarative chaining of tasks (pipeline style).    
+        Handles both success and failure (exceptionally, handle).    
+        Uses ForkJoinPool.commonPool by default, but you can provide your own Executor.
 
-### CompletableFuture.runAsync() vs supplyAsync()
+
+    Rule of Thumb :-
+
+    Use ExecutorService when:    
+        You need explicit control over thread pools, scheduling, or task submission.    
+        You’re running independent tasks without complex chaining.
+
+    Use CompletableFuture when:    
+        You want to chain async operations.    
+        You prefer non-blocking callbacks instead of get().    
+        You want cleaner async workflows with built-in error handling.
+
+
+You can even combine them:
+CompletableFuture methods have overloads that accept an Executor, so you can run them inside a custom thread pool:
+
+```java
+    ExecutorService executor = Executors.newFixedThreadPool(4);
+    
+    CompletableFuture<Integer> future =
+    CompletableFuture.supplyAsync(() -> 42, executor);
+    
+    future.thenAccept(System.out::println);
+    
+    executor.shutdown();
+```
+
+### CompletableFuture --> runAsync() vs supplyAsync()
 
 Both methods are used to start asynchronous tasks in Java, but they differ in whether they return a result.
 
 
-| Feature               | `CompletableFuture.runAsync()`                                      | `CompletableFuture.supplyAsync()`          |
-|-----------------------|---------------------------------------------------------------------|---------------------------------------------|
-| Returns a result?     | ❌ No                                                                | ✅ Yes                                      |
-| Input type            | `Runnable` (no return value)                                        | `Supplier<T>` (returns a value of type `T`) |
-| Result type           | `CompletableFuture<Void>`                                           | `CompletableFuture<T>`                      |
-| Typical use case      | Fire-and-forget background task <br/>like logging, updating a cache | Async computation that returns a result     |
-| Custom executor?      | ✅ Optional                                                          | ✅ Optional                                  |
+| Feature               | ExecutorService                | CompletableFuture                         |
+| --------------------- | ------------------------------ | ----------------------------------------- |
+| **Abstraction Level** | Lower-level (thread pool mgmt) | Higher-level (async computation pipeline) |
+| **Return Type**       | `Future<T>` (blocking `get()`) | `CompletableFuture<T>` (non-blocking)     |
+| **Task Chaining**     | Manual                         | Built-in (`thenApply`, `thenCompose`)     |
+| **Error Handling**    | Manual try-catch               | Built-in (`exceptionally`, `handle`)      |
+| **Default Executor**  | None (you must create one)     | `ForkJoinPool.commonPool` (or custom)     |
+| **Best For**          | Managing pools of tasks        | Async workflows, reactive programming     |
 
 
 ```java
@@ -342,10 +443,19 @@ Both methods are used to start asynchronous tasks in Java, but they differ in wh
     });
 
     //supplyAsync --> Use this when the task returns a value that you want to use in further processing.
-    CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> 42);    
-    future.thenAccept(result -> System.out.println("Result: " + result));
+    CompletableFuture<Integer> future =
+            CompletableFuture.supplyAsync(() -> {
+                sleep(1000);
+                return 42;
+            });
 
-     //Both methods can take a custom executor:
+         future.thenApply(result -> result * 2)
+            .thenAccept(result -> System.out.println("Result: " + result));
+
+            future.join(); // ensures program waits for completion
+
+
+    //Both methods can take a custom executor:
      ExecutorService executor = Executors.newFixedThreadPool(2);
      CompletableFuture.runAsync(() -> doSomething(), executor);
      CompletableFuture.supplyAsync(() -> computeValue(), executor);
@@ -388,11 +498,30 @@ Both methods are used to start asynchronous tasks in Java, but they differ in wh
 
 ```
 
-### ForkJoinPool
+### ForkJoinPool -
+
+What is ForkJoinPool?
+
+    ForkJoinPool is a specialized or smart thread pool introduced in Java 7 (in java.util.concurrent) foired and joined frameworked.    
+    It is designed for tasks that can be split (forked) into smaller subtasks and later combined (joined) to produce a result.    
+    It implements the work-stealing algorithm, meaning idle threads "steal" work from busy threads to maximize CPU utilization.
+
+
+Why ForkJoinPool?
+
+    Traditional thread pools (like ThreadPoolExecutor) are good for independent tasks, but:    
+    They don’t handle divide-and-conquer tasks efficiently.    
+    They don’t balance workload well if one thread has more tasks than others.
+    
+    ForkJoinPool solves this by allowing:
+    
+    1. Recursive splitting of tasks (fork).    
+    2. Merging results (join).    
+    3. Work stealing between worker threads.
+
     - CompletableFuture.supplyAsync() and runAsync() use the common ForkJoinPool by default: you can pass your own thread ppol as well see "Custom Thread Pool" above 
     - A specialized implementation of ExecutorService designed for parallel processing of tasks that can be broken down into smaller subtasks.
-    - Think of ForkJoinPool as a smart thread pool that helps you run lots of small tasks concurrently, often using work stealing to keep all threads busy.
-    - ForkJoinPool is a powerful concurrency tool in Java designed to execute parallel, divide-and-conquer tasks efficiently.
+        
 
 
 | Feature           | Description                                                                 |
@@ -484,27 +613,45 @@ Timeout vs Heart beat - Timeout is when you wait for a certain amount of time be
 
 * Process -- stored in main - memory/RAM.
 ##### Computer storage devices - 
-  * Volatile storage - Data is lost when the power is turned off. e.g. Registers, Cache and RAM
+  * **Volatile storag**e - Data is lost when the power is turned off. e.g. Registers, Cache and RAM
     * Registers - CPU uses registers to store data that is currently being processed. Registers are the fastest form of memory.
     * Cache - OS uses cache to store the data that is frequently accessed by the CPU. Cache is faster than main memory.
     * Main Memory/RAM - OS uses main memory to store the data that is currently being used by the CPU. Main memory is slower than cache. Applications and data(including) are stored in main memory.
-  * Non-volatile storage - Data is not lost when the power is turned off. e.g. Hard disk, SSD, USB, CD, DVD, etc.
+  * **Non-volatile storage** - Data is not lost when the power is turned off. e.g. Hard disk, SSD, USB, CD, DVD, etc.
     * Secondary Memory storage - SD card, Hard disk, SSD, USB, CD, DVD, etc.
   
   
 
-CPU doesn't interact with the main memory directly. It interacts with the cache. Cache interacts with the main memory. Main memory interacts with the secondary memory. Secondary memory interacts with the disk.
+* CPU doesn't interact with the main memory directly. It interacts with the cache. Cache interacts with the main memory. Main memory interacts with the secondary memory. Secondary memory interacts with the disk.
 
 
-Disk is slower than RAM. RAM is slower than cache. Cache is slower than CPU registers.
+* Disk is slower than RAM. RAM is slower than cache. Cache is slower than CPU registers.
 
-Disk is cheaper than RAM. RAM is cheaper than cache. Cache is cheaper than registers.
+* Disk is cheaper than RAM. RAM is cheaper than cache. Cache is cheaper than registers.
 
-Size of storage - Registers(KB) < Cache(MB) < RAM(GB) < Disk (TB)
+* **Size of storage** - **Registers(KB) < Cache(MB) < RAM(GB) < Disk (TB)**
 
-CPU doesn't directly interact with disk rather data bus interact with disk.
+* CPU doesn't directly interact with disk rather data bus interact with disk.
 
-RAM - divided into fixed contiguous blocks called pages. Each page is further divided into fixed-size blocks called frames. The size of a page is equal to the size of a frame.
+**Logical address** - address generated by the **CPU for process**. It is also called **virtual addres**s. It is used by the CPU to access the memory. Process only knows about logical address. The logical address is translated to physical address by the Memory Management Unit (MMU). <br/>
+
+**Physical address** - address generated by the Memory management unit (MMU). It is also called **real address**. It is used by the memory unit to access the memory. The physical address is generated by the MMU after translating the logical address. Physical address can be RAM and HDD(storage). If RAM is full then physical address will be in HDD(storage).
+
+**Memory management Unit (MMU)** is the process of managing the memory in a computer system. The logical address is translated to physical address by the Memory Management Unit (MMU). It is responsible for allocating and deallocating memory to processes, and for managing the memory hierarchy (cache, main memory, secondary memory). Memory management is done by the operating system.
+
+* virtual memory - is a memory management technique that allows the operating system to use the secondary memory as if it were main memory. This allows the operating system to run larger applications than the physical memory available in the system. Virtual memory is implemented using paging.
+* physical memory - is the actual memory installed in the system. It is also called main memory or RAM. The operating system uses physical memory to store the data and instructions of the processes that are currently running.
+
+**RAM** - divided into fixed contiguous blocks called **pages**. Each page is further divided into fixed-size blocks called **frames**.
+**HDD(storage)** - divided into frames.
+
+**page(size) == frame(size)**
+
+**page fault** - Process want to access page and it's not main memory, it is called a page fault.
+**page replacement** - Process want to access page and it's not main memory, it is called a page fault. The OS needs to bring the page from the secondary memory to the main memory. If the main memory is full, the OS needs to replace a page in the main memory with the new page (frame). This is called page replacement. There are several algorithms for page replacement, such as FIFO, LRU, LFU, etc.
+
+**Thrashing** - When the OS is spending more time on page replacement than executing the processes, it is called thrashing. This can happen when the main memory is too small to hold the working set of the processes.
+
 
 ### Memory Management Unit (MMU) 
 - Hardware component that maps virtual addresses to physical addresses. Check watch video 109 - "CS Fundamental : Deadlocks and Memory Management" 
@@ -1017,7 +1164,7 @@ public class ManualThreadPool {
 
 * When to Use What? -
     * Use CountDownLatch when you want one or more threads to wait until a fixed number of events are completed.
-    * Use Semaphore when you want to control concurrent access to a shared resource.
+    * Use Semaphore when you want to control concurrent access to a shared resource. Thread pool and database connection pool uses it.
 
 ```
 

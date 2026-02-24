@@ -2,8 +2,23 @@
 
 * Data -->  information or facts and statistics collected together for reference and analysis. 
 * Database --> collection of data, organized in a way that can be easily accessed, managed, and updated
-* DBMS (Database Management System) --> software that manages databases, that enables define, create, maintain, and control access to the database
- e.g MySQL, Oracle, SQL Server, PostgreSQL, SQLite, MS Access, etc.
+* DBMS (Database Management System) --> A DBMS is software that provides an interface to create, access, manage, and control databases.
+        
+        It’s the tool/program that interacts with the database.        
+        It ensures data consistency, concurrency, integrity, and security.        
+        It supports query languages like SQL to interact with the database.
+      Example:
+        
+      Oracle, MySQL, PostgreSQL, SQL Server, MongoDB are DBMS software.
+
+✅ Quick Analogy
+
+        Database → Your bookshelf (collection of books).        
+        DBMS → The librarian (who organizes, retrieves, and maintains the books).
+✅ In short:
+
+    A database is where the data lives.    
+    A DBMS is the software that manages and gives you tools to use that data.
 
 
 * Relation Database (RDBMS) --> data stored in tables, rows, and columns, e.g MySQL, Oracle, SQL Server, PostgreSQL, SQLite, MS Access, etc.
@@ -11,25 +26,25 @@
 
 * Non-relational databases --> NoSQL databases, e.g MongoDB, CouchDB, Cassandra, Redis, etc. 
 
-        -Do not use tables for storing data, and do not follow the strict schema structure of relational databases.
-        -Document databases, key-value stores, wide-column stores, and graph databases are all types of NoSQL databases.
-        -Data stored in JSON, XML, BSON (Binary  json) etc.
-        -NoSQL databases are highly scalable, and are designed to handle large data sets distributed across many servers.
-        -NoSQL databases are increasingly used in big data and real-time web applications.
+      -Do not use tables for storing data, and do not follow the strict schema structure of relational databases.
+      -Document databases, key-value stores, wide-column stores, and graph databases are all types of NoSQL databases.
+      -Data stored in JSON, XML, BSON (Binary  json) etc.
+      -NoSQL databases are highly scalable, and are designed to handle large data sets distributed across many servers.
+      -NoSQL databases are increasingly used in big data and real-time web applications.        
 
 
-    Key-value stores --> store data in key-value pairs, e.g Redis, Amazon DynamoDB, Riak, BigTable etc.
+    Key-value stores --> store data in key-value pairs, schemaless, e.g Redis, Amazon DynamoDB, Riak, BigTable etc.
                             Key-value stores are ideal for applications that require high-speed data access.
-                            Key-value stores are often used for caching, session storage, user preference, and real-time analytics.
+                            Key-value stores are often used for caching, session storage, user preference, and real-time leaderBoard.
                             - Fast O(1) read/write
                             - Scalable and distributed easily
 
-    Document databases --> store emi-structured data as documents (JSON  or BSON), extension to key-value database. e.g MongoDB, CouchDB, Amazon DocumentDB etc.
+    Document databases --> store semi-structured data as documents (JSON  or BSON), extension to key-value database. e.g MongoDB, CouchDB, Amazon DocumentDB,elastic search etc.
                          Use case -- Content management, product catalogs, user profiles, logging.   
 
     Columnar databases --> Stores data column-by-column instead of row-by-row., e.g Maria DB, Apache  Cassandra, Apache  HBase, Amazon Redshift, ClickHouse, Google BigQuery, Vertica etc.
     Columnar databases are designed to store, retrieve, and manage data in columns rather than rows.   
-    Use case - 	Analytics, time-series-like queries, data warehousing.
+    Use case - 	Analytics, time-series-like queries, data warehousing, dashboards, OLAP systems. Logging and event data analysis
     Excellent for aggregate queries and OLAP system - Online Analytical Processing - analyzing large volumes of historical data to gain insights, such as financial forecasting or sales reporting, 
     Are optimized for complex queries and aggregations. 
 
@@ -39,7 +54,7 @@
                             Graph databases are used to store information about networks, such as social connections.
                             Graph structure is made up of nodes, edges, and properties.  
 
-    Time-series databases --> store data with timestamps, e.g InfluxDB, TimescaleDB (PostgreSQL extension), Prometheus, etc.
+    Time-series databases --> store data with timestamps,Time Series DBs are optimized for writes and time-based queries e.g InfluxDB, TimescaleDB (PostgreSQL extension), Prometheus, etc.
 
     In-memory databases --> store data in memory, e.g Redis, Memcached, etc.
 
@@ -53,7 +68,7 @@
 | Time Series | Medium             | Time-based queries        | Optimized         | Monitoring, IoT             |
 
 
-### CHat gpt important database - https://chatgpt.com/c/6841d957-f984-8005-b892-9b71484cdfcb
+### Chat gpt important database - https://chatgpt.com/c/6841d957-f984-8005-b892-9b71484cdfcb
 
 
 ### Database Use Case Cheat Sheet for System Design Interviews
@@ -337,15 +352,22 @@ A quick reference guide mapping **use cases to database types** — with explana
 
 
 * Read uncommitted isolation e.g. - eventual consistency, email.
-* Read committed isolation e.g. - bank account, money transfer.
-* Repeatable read isolation e.g. - inventory management, stock management.
-* Serializable isolation e.g. - online transactions, e-commerce.
+* Read committed isolation e.g. - bank account, money transfer.  -- strong constancy
+* Repeatable read isolation e.g. - inventory management, stock management. (most application run on it)
+* Serializable isolation e.g. - online transactions, e-commerce. -- Causal constancy . Transaction can run in parallel if don't have related data (it means they have independent data)
 
+  * As isolation level increases, concurrency decreases, efficiency decreases.
+  * Highest Isolation level - Serializable, Lowest Isolation level - Read uncommitted.
+  * Highest efficiency - Read uncommitted, Lowest efficiency - Serializable.
+  
 
-* Isolation level can be set at database and program level (session or each transaction). Program level isolation is more preferrable than database level isolation.
+* If two transaction concurrently change the same key to different values and we roll back the transaction it is called  ---- Optimistic Concurrency Control.
+
+* Isolation level can be set at database and program level (session or each transaction). Program level isolation is more preferable than database level isolation.
 * SSMS - each window is new session and hence new transaction Isolation level.
 
 **Cheat Sheet**
+
 ![Isolation levels](https://miro.medium.com/max/1400/1*BvW4z5nGuWQt_KHIraDsWg.png)
 
 
@@ -424,7 +446,7 @@ The top node is the root, and those below it are either child nodes or leaf node
 
 
 
-# 05_09 - all documents in one
+# 05_09 - all documents in one here below
 
 * String matching wildcards - With `LIKE` you can use the following two wildcard characters in the pattern
       
@@ -492,7 +514,7 @@ SELECT * FROM students WHERE first_name LIKE 'T_';
   * Hide complexity of the database model - joining multiple tables, complex queries.
   * Enhanced security and abstract of database.
   * Denormalization - used by BA and analyst.
-  * Maintability
+  * Maintainability
   * Alias for query, it fires query every time you run it.
   
 

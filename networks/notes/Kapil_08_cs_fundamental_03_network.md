@@ -1,20 +1,28 @@
 # 01-introduction-OSI-model.md
 
 ### Internet 
+ **Internet --> Network --> computer**
+
 * Internet - collection of networks connected to each other.
 * IP address (internet protocol address) - unique identifier for a computer on a network. 
   * IPv4 - 32-bit address
   * IPv6 - 128-bit address
-  * IPv4 vs IPv6 -
+  * IPv4 vs IPv6 - https://www.fs.com/blog/ipv4-vs-ipv6-which-is-faster-1135.html
     * IPv4 has 4.3 billion addresses
     * IPv6 has 340 undecillion addresses
+    * IPv6 is better than IPv4 in terms of security, speed, and no of address.
+    * Ipv4 & Ipv6 can co-exist using dual stack or tunneling.
+    * Ipv4 is still widely used, but IPv6 adoption is increasing.
+    * Ipv4 & Ipv6 can't communicate directly.
+    * **IP address can be same in different networks**.
 
 * DNS (Domain Name System) - translates domain names to IP addresses. The Domain Name System is the hierarchical and decentralized naming system used to identify computers on the internet.
 * Communication protocols - rules that define how data is transmitted over a network.
 * Packet - unit of data that is sent over a network.
 
-### Network - use for communication, shared resources.
-- collection of computers connected to each other to share resources.These devices are connected using physical wires such as fiber optics, but they can also be wireless
+### Network - use for communication, share resources.
+- collection of computers(a switch, PC, or other devices) connected to each other to share resources.These devices are connected using physical wires such as fiber optics, but they can also be wireless
+- Whenever a device gets access to the Internet (whether it's a switch, PC, or other devices), it is assigned a unique, numerical IP address such as 192.149.252.76 as shown below
   * LAN (Local Area Network) - network that connects computers in a limited geographical area , such as within a home, a building or one site. A LAN can be created to share data or hardware such as a printer/fax/scanner, or to share an internet connection o program.
   * WAN (Wide Area Network) - network that connects computers over a large geographical.For example, a company with an office in London and another in Beijing would use a WAN to allow the employees to share one network.Some companies will connect a number of LANs in different areas together to create a WAN. This is Internet.
 
@@ -88,7 +96,7 @@ Modern browsers and servers optimize this process through:
 * The OSI model is divided into seven layers:
   *  Layers -      
 
-         **Application Layer** - Closest to the end-user, it interacts directly with software applications to provide communication services (e.g., HTTP/HTTPS, FTP, DNS, SMTP/POP3/IMAP).
+         **Application Layer** - Closest to the end-user, it interacts directly with software applications to provide communication services (e.g., HTTP/HTTPS, Web Socket, FTP, DNS, SMTP/POP3/IMAP).
     
          **Presentation Layer** - Responsible for data formatting, encryption, compression. Protocol - SSL/TLS
     
@@ -112,6 +120,8 @@ Modern browsers and servers optimize this process through:
     Bottom 3 layers (3–1): Deal with data transmission and routing
 
 ![vs](https://www.imperva.com/learn/wp-content/uploads/sites/13/2020/02/OSI-vs.-TCPIP-models.jpg.webp)
+
+![img_4.png](img_4.png)
 
 ### Some commands to get started
 
@@ -274,27 +284,29 @@ HTTP/1.1 200 OK
 Content-Type: application/json
 
 
-# 🌐 Most Common HTTP Status Codes
-HTTP status codes are standardized three-digit responses from a server indicating the result of a client’s request.
+### 🌐 Most Common HTTP Status Codes
+- HTTP status codes are standardized three-digit responses from a server indicating the result of a client’s request.
 ---
-## 🔵 1xx – Informational
+🔵 1xx – Informational
+
 | Code | Meaning             | Description                                               |
 |------|---------------------|-----------------------------------------------------------|
 | 100  | Continue            | The initial part of a request was received; continue     |
 
-## ✅ 2xx – Success
+✅ 2xx – Success
 
 | Code | Meaning     | Description                                           |
 |------|-------------|-------------------------------------------------------|
 | 200  | OK          | The request succeeded and the response contains data |
 
-## 🔁 3xx – Redirection
+🔁 3xx – Redirection
 
 | Code | Meaning            | Description                                              |
 |------|--------------------|----------------------------------------------------------|
 | 301  | Moved Permanently  | Resource has permanently moved to a new URL             |
 
-## ❌ 4xx – Client Errors
+❌ 4xx – Client Errors
+
 | Code | Meaning            | Description                                            |
 |------|--------------------|--------------------------------------------------------|
 | 400  | Bad Request        | The server cannot process the malformed request        |
@@ -303,7 +315,8 @@ HTTP status codes are standardized three-digit responses from a server indicatin
 | 404  | Not Found          | The requested resource doesn't exist                   |
 | 429  | Too Many Requests  | Client sent too many requests in a short time          |
 
-## ⚠️ 5xx – Server Errors
+⚠️ 5xx – Server Errors
+
 | Code | Meaning               | Description                                                |
 |------|-----------------------|------------------------------------------------------------|
 | 500  | Internal Server Error | Generic server-side error                                  |
@@ -319,8 +332,8 @@ HTTP status codes are standardized three-digit responses from a server indicatin
 # 03-cookies-dns-tcp.md
 
 ### TCP vs UDP 
-  * TCP (Transmission Control Protocol) - connection-oriented protocol that provides reliable data transfer. It ensures that data is delivered in the correct order and without errors. TCP is used for applications that require high reliability, such as web browsing, email, and file transfer.
-  * UDP (User Datagram Protocol) - connectionless protocol that provides fast data transfer but does not guarantee delivery. or especially time-sensitive transmissions such as online gaming, video streaming, video playback or DNS lookups. UDP is used for applications that require speed and efficiency. 
+  * TCP (Transmission Control Protocol) - connection-oriented protocol that provides reliable data transfer. It ensures that data is delivered in the correct order and without errors. TCP is used for applications that require high reliability, such as web browsing, email, and file transfer. Retries in case of failure. HTTP run over TCp so inherit TCP properties.
+  * UDP (User Datagram Protocol) - connectionless protocol that provides fast data transfer but does not guarantee delivery. or especially time-sensitive transmissions such as online gaming, video streaming, real-time delivery, video playback or DNS lookups. UDP is used for applications that require speed and efficiency. 
 
 
 
@@ -360,7 +373,7 @@ Same TCP connection can be use for multiple HTTP/HTTPS requests.
 The server is responsible for creation of the cookies. A web server specifies a cookie to be stored by sending an HTTP header called Set-Cookie
 
 
-### Request and response lifecycle
+✅ Request and response lifecycle
 1. The browser sends its first HTTP request for the homepage of the `www.slow.com` website
 
     ```
@@ -399,7 +412,7 @@ The server is responsible for creation of the cookies. A web server specifies a 
 
 ### DNS -
 * The Domain Name System (DNS) is the phonebook of the Internet. translates domain names to IP addresses. The Domain Name System is the hierarchical and decentralized naming system used to identify computers on the internet.
-
+* DNS machines maintain a copy of information present centrally(iCANN) and they keep pinging every few hours to get any recent updates from the central machines.
 
 * 🔁 DNS Lookup Flow - 
 
