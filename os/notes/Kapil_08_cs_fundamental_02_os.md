@@ -811,7 +811,8 @@ Thread 2: while (!flag) { /* wait */ }
 ###  Blocking queue 
 
 * BlockingQueue Comparison - BlockingQueue is a thread-safe queue that supports operations that wait for the queue to become non-empty when retrieving an element and wait for space to become available in the queue when storing an element.
-
+* LinkedList is also queue implementation but it is not thread-safe. BlockingQueue is thread-safe.
+* Queue<TreeNode> queue = new LinkedList<>();
 ```java 
 
 | Queue Type              | Capacity      | Ordering                  | Use Case                                 |
@@ -823,6 +824,10 @@ Thread 2: while (!flag) { /* wait */ }
 ```
 
 * various - add/remove operations -
+* Three categorization of methods:-
+  * offer/poll - Non-blocking methods (also tim )
+  * add/remove - Exception-throwing methods
+  * put/take - Blocking methods
 
 ```java
       ## 🟢 Common Methods to Add Elements (BlockingQueue) - 
