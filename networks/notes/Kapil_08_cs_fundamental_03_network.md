@@ -20,6 +20,27 @@
 * Communication protocols - rules that define how data is transmitted over a network.
 * Packet - unit of data that is sent over a network.
 
+
+* **protocol** - a set of rules that govern how data is transmitted over a network. Devices uses protocol to communication and sharing resources. Protocols are used to ensure that data is transmitted correctly and efficiently. For example, HTTP is a protocol used for transmitting web pages over the internet.<br/>
+
+* **RFC** - Request for Comments, maintained by IETF (Internet Engineering Task Force) - here different protocols are defined and maintained (their API's). For example, HTTP is defined in RFC 2616. Here standard is defined which can be implemented in different programming language.<br/>
+
+* Internet works as similar way as post-office. When you send a letter, you write the address on the envelope and drop it in the mailbox. The postal service then takes care of delivering the letter to the correct address. Similarly, when you send data over the internet, you include the destination IP address in the packet header, and the internet infrastructure takes care of routing the packet to the correct destination. <br/>
+
+* IP Address - is a unique identifier for a computer on a network. It is used to identify the source and destination of data packets as they travel across the internet. An IP address is typically represented as a series of four numbers separated by dots (e.g.,)
+
+* Port - is a number that identifies a specific process or service on a computer. For example, HTTP traffic typically uses port 80, while HTTPS traffic uses port 443. When a client wants to connect to a server, it specifies the IP address and port number of the server it wants to connect to. The server listens for incoming connections on that port and responds accordingly.
+* there are **2^16(65535**) ports available for use on a single machine, but some ports are reserved for specific services. For example, port 80 is reserved for HTTP traffic, and port 443 is reserved for HTTPS traffic. Other common ports include:
+  * Port 21 - FTP (File Transfer Protocol)
+  * Port 22 - SSH/SFTP (Secure Shell)
+  * Port 53 - DNS (Domain Name System)
+  * port 80 - HTTP (Hypertext Transfer Protocol)
+  * port 443 - HTTPS (Hypertext Transfer Protocol Secure)
+
+
+![img_5.png](images/devices_on_internet_naman_bhalla_cs1.png)
+  
+
 ### Network - use for communication, share resources.
 - collection of computers(a switch, PC, or other devices) connected to each other to share resources.These devices are connected using physical wires such as fiber optics, but they can also be wireless
 - Whenever a device gets access to the Internet (whether it's a switch, PC, or other devices), it is assigned a unique, numerical IP address such as 192.149.252.76 as shown below
@@ -87,7 +108,19 @@ Modern browsers and servers optimize this process through:
 - **Preloading/Prefetching:** Predictively fetching resources based on user behavior.
 - **Compression:** Using protocols like Gzip or Brotli to reduce data size.
 
-### OSI Model - Open Systems Interconnection Model 
+### How internet works - OSI Model - Open Systems Interconnection Model (1970 - theoretical model only)
+
+![img_5.png](OSI_how_internet_works_1_%20naman_bhalla_cs1.png)
+
+![img_6.png](OSI_how_internet_works_2_%20naman_bhalla_cs1.png)
+
+![img_7.png](OSI_how_internet_works_3_%20naman_bhalla_cs1.png)
+
+![img_5.png](OSI_how_internet_works_4_%20naman_bhalla_cs1.png)
+
+![img_6.png](OSI_how_internet_works_5_%20naman_bhalla_cs1.png)
+
+
 * The OSI model is used to understand how networks operate and how data is transmitted from one computer to another.
 * The OSI model is a theoretical model, and in practice, the TCP/IP model is more commonly used.
 * Separation of Responsibility, Abstraction (hide complexity), Hierarchical, Layered Model
@@ -102,11 +135,11 @@ Modern browsers and servers optimize this process through:
     
          **Session Layer** - Establishes, maintains, and terminates communication sessions between appllication.  Protocol - NetBIOS, RPC
     
-         **Transport Layer** - End to end communication. Commnication between two devices. Data converted into segment. Ensures reliable data transfer through error detection, retransmission, and flow control and error control. Protocols include TCP and UDP. Gaurantee of delivery, falut tolerance, in-order transmission.
+         **Transport Layer** - End to end communication. Commnication between two devices. Data converted into chunks - datagram (UDP) or segment(TCP). Ensures reliable data transfer through error detection, retransmission, and flow control and error control. Protocols include TCP and UDP. Gaurantee of delivery, falut tolerance, in-order transmission. Add source & destination port, sequence number.
     
          **Network Layer** - Routing, logical addressing - Divide segment into packets. Packets routing done here. Handles logical addressing and routing of data between devices across different networks. Protocols include IP and ICMP.
     
-         **Data Link Layer** - Physical addressing, error detection - Similar to netwrok layer, care about only next hop in the network. Hop to hop transfer. Provides error detection and correction for data transmitted over the physical layer. Protocol -- MAC, Ethernet.
+         **Data Link Layer** - Physical addressing, error detection - Similar to netwrok layer, care about only next hop in the network. Hop to hop transfer. Provides error detection and correction for data transmitted over the physical layer. Protocol -- MAC, Ethernet. Flow control error, control
     
          **Physical Layer** - The lowest layer, Hardware -  Convert into BitSTream 0 or 1. it deals with the physical transmission of raw binary data over hardware like cables, switches, and wireless signals. 
 
@@ -119,9 +152,12 @@ Modern browsers and servers optimize this process through:
 
     Bottom 3 layers (3–1): Deal with data transmission and routing
 
+
+** TCP/IP Model - Transmission Control Protocol/Internet Protocol (1989 - practical model)**
+
 ![vs](https://www.imperva.com/learn/wp-content/uploads/sites/13/2020/02/OSI-vs.-TCPIP-models.jpg.webp)
 
-![img_4.png](img_4.png)
+![img_4.png](images/img_4.png)
 
 ### Some commands to get started
 
@@ -229,7 +265,7 @@ DELETE  /users/123         → Delete user 123
 
 HTTP request headers are key-value pairs sent from the client (like a browser or app) to the server, giving extra context about the request — such as who’s sending it, what format is expected, and more
 
-![img.png](img.png)
+![img.png](images/Http_headers.png)
 
 Some common headers are:
 * Host - The host header specifies the domain name or IP address of the server receiving the request.
@@ -416,7 +452,7 @@ The server is responsible for creation of the cookies. A web server specifies a 
 
 * 🔁 DNS Lookup Flow - 
 
-![img_1.png](img_1.png)
+![img_1.png](images/DNS.png)
 
 ---
 
