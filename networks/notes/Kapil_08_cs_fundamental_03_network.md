@@ -39,7 +39,30 @@
 
 
 ![img_5.png](images/devices_on_internet_naman_bhalla_cs1.png)
-  
+
+
+
+### Socket vs port vs ephemeral port
+- **A** socket **is a wrapper around an IP address and a port number**. It is used to establish a connection between two devices on a network. A socket is created when a client initiates a connection to a server, and it is used to send and receive data between the two devices**. 
+    - For example, **when a client connects to a web server**, it creates a socket that includes the **client's IP address and an ephemeral port(random)** number, and the server creates a socket that includes its own IP address and the port number for the web service (e.g., port 80 for HTTP). <br/>
+    - **OS provides socket API** to create and manage socket. Each language (e.g java) provide wrapper to socket API to create and manage socket. Socket API is a low level API, it is used to create and manage socket, but it does not provide any high level functionality such as HTTP or FTP. For that we need to use libraries that provide high level functionality on top of socket API.
+    - In a device **2^16 por**t available but only one socket can be created for a specific port. For example, if a web server is running on port 80, only one socket can be created for that port. If another application tries to create a socket on the same port, it will fail because the port is already in use.
+    - One to one relationship between **socket and port**.
+    - **Socket s = new Socket("www.example.com", 80)**; // creates a socket that connects to www.example.com on port 80.
+
+
+- A port is a number that identifies a specific process or service on a computer. For example, if a client wants to connect to a web server, it will use port 80 for HTTP traffic or port 443 for HTTPS traffic.
+
+
+- An **ephemeral port (random port)** is a temporary port number that is assigned to a client when it initiates a connection to a server. For example, when a client connects to a web server, it may use an ephemeral port in the range of 49152 to 65535 to establish the connection.
+
+
+- In summary, a socket is a combination of an IP address and a port number, a port is a number that identifies a specific process or service on a computer, and an ephemeral port is a temporary port number that is assigned to a client when it initiates a connection to a server.
+
+
+![socket_port_1_ naman_bhalla_cs2.png](images/socket_port_1_%20naman_bhalla_cs2.png)
+
+![img.png](images/socket_port_2_%20naman_bhalla_cs2.png)
 
 ### Network - use for communication, share resources.
 - collection of computers(a switch, PC, or other devices) connected to each other to share resources.These devices are connected using physical wires such as fiber optics, but they can also be wireless
@@ -175,14 +198,14 @@ Modern browsers and servers optimize this process through:
 
 ### 1. Client-server
 - The client-server model is the relationship between two computers in which one, the client, makes a service request from another, the server. The key point about a client-server model is that the client is dependent on the server to provide and manage the information.
-- Browser, Mobile apps, Desktop apps are clients. Server is a computer that provides data to other computers.
+- Browser, Mobile apps, Desktop apps are clients. Server is a computer that provides **data to other clients**. **Server owns the data, client consume the data.**
 - For example, websites are stored on web servers. A web browser is the client which makes a request to the server, and the server sends the website to the browser.
 - Also knows as Synchronous path or Sync path
 
 ![client-server](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Client-server-model.svg/1280px-Client-server-model.svg.png)
 
 ### 2. Peer-to-peer (P2P) 
-- decentralized model - A network where each node (peer) acts as both a client and a server. 
+- **decentralized model** - A network where each node (peer) acts as both a client and a server. 
 - In the client-server model, many users trying to access a large file, such as a film, would put strain on one server. In the peer-to-peer model, many users on the network could store the same file. Each computer can then send sections of the file, sharing the workload. Each client can download and share files with other users.
 - In P2P - other protocol will not work like - http/https. It will work on BitTorrent protocol.
 
@@ -196,9 +219,10 @@ Some applications of the peer-to-peer model are:
 * Cryptocurrency - work on Blockchain which uses peer to peer model.
 * Tesla Car
 
-### BitTorrent - P2P Protocol
+### BitTorrent (P2P Protocol)
 
-The BitTorrent protocol can be used to reduce the server and network impact of distributing large files. Rather than downloading a file from a single source server, the BitTorrent protocol allows users to join a "swarm" of hosts to upload and download from each other simultaneously. Using the BitTorrent protocol, several basic computers, such as home computers, can replace large servers while efficiently distributing files to many recipients.
+The BitTorrent protocol can be used to reduce the server and network impact of distributing large files. Rather than downloading a file from a single source server, the BitTorrent protocol allows ******users to join a "swarm" of hosts to upload and downloa**d from each other**** simultaneously. 
+**Using the BitTorrent protocol**, several basic computers, **such as home computers, can replace large servers** while efficiently distributing files to many recipients.
 
 ![torrent](https://upload.wikimedia.org/wikipedia/commons/3/3d/Torrentcomp_small.gif)
 
