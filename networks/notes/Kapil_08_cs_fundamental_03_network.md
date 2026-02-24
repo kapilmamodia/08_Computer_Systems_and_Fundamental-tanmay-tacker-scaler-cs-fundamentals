@@ -3,7 +3,7 @@
 ### Internet 
  **Internet --> Network --> computer**
 
-* Internet - collection of networks connected to each other.
+* Internet - collection of networks connected to each other. --> https://www.submarinecablemap.com/  - shows cable network for internet under water.
 * IP address (internet protocol address) - unique identifier for a computer on a network. 
   * IPv4 - 32-bit address
   * IPv6 - 128-bit address
@@ -30,7 +30,7 @@
 * IP Address - is a unique identifier for a computer on a network. It is used to identify the source and destination of data packets as they travel across the internet. An IP address is typically represented as a series of four numbers separated by dots (e.g.,)
 
 * Port - is a number that identifies a specific process or service on a computer. For example, HTTP traffic typically uses port 80, while HTTPS traffic uses port 443. When a client wants to connect to a server, it specifies the IP address and port number of the server it wants to connect to. The server listens for incoming connections on that port and responds accordingly.
-* there are **2^16(65535**) ports available for use on a single machine, but some ports are reserved for specific services. For example, port 80 is reserved for HTTP traffic, and port 443 is reserved for HTTPS traffic. Other common ports include:
+* **port size == 16 bits** and hence there are **2^16(65535**) ports available for use on a single machine, but some ports are reserved for specific services. For example, port 80 is reserved for HTTP traffic, and port 443 is reserved for HTTPS traffic. Other common ports include:
   * Port 21 - FTP (File Transfer Protocol)
   * Port 22 - SSH/SFTP (Secure Shell)
   * Port 53 - DNS (Domain Name System)
@@ -110,15 +110,11 @@ Modern browsers and servers optimize this process through:
 
 ### How internet works - OSI Model - Open Systems Interconnection Model (1970 - theoretical model only)
 
-![img_5.png](OSI_how_internet_works_1_%20naman_bhalla_cs1.png)
-
-![img_6.png](OSI_how_internet_works_2_%20naman_bhalla_cs1.png)
-
-![img_7.png](OSI_how_internet_works_3_%20naman_bhalla_cs1.png)
-
-![img_5.png](OSI_how_internet_works_4_%20naman_bhalla_cs1.png)
-
-![img_6.png](OSI_how_internet_works_5_%20naman_bhalla_cs1.png)
+![OSI_how_internet_works_1_ naman_bhalla_cs1.png](images/OSI_how_internet_works_1_%20naman_bhalla_cs1.png)
+![OSI_how_internet_works_2_ naman_bhalla_cs1.png](images/OSI_how_internet_works_2_%20naman_bhalla_cs1.png)
+![OSI_how_internet_works_3_ naman_bhalla_cs1.png](images/OSI_how_internet_works_3_%20naman_bhalla_cs1.png)
+![OSI_how_internet_works_4_ naman_bhalla_cs1.png](images/OSI_how_internet_works_4_%20naman_bhalla_cs1.png)
+![OSI_how_internet_works_5_ naman_bhalla_cs1.png](images/OSI_how_internet_works_5_%20naman_bhalla_cs1.png)
 
 
 * The OSI model is used to understand how networks operate and how data is transmitted from one computer to another.
@@ -129,7 +125,7 @@ Modern browsers and servers optimize this process through:
 * The OSI model is divided into seven layers:
   *  Layers -      
 
-         **Application Layer** - Closest to the end-user, it interacts directly with software applications to provide communication services (e.g., HTTP/HTTPS, Web Socket, FTP, DNS, SMTP/POP3/IMAP).
+         **Application Layer** - Closest to the end-user, **It generated and recive the data**. it interacts directly with software applications to provide communication services (e.g., HTTP/HTTPS, Web Socket, FTP, DNS, SMTP/POP3/IMAP).
     
          **Presentation Layer** - Responsible for data formatting, encryption, compression. Protocol - SSL/TLS
     
@@ -175,7 +171,9 @@ Modern browsers and servers optimize this process through:
 
 # 02-application-layer.md
 
-### Client-server
+### Application Architectures -- Client-server & P2P
+
+### 1. Client-server
 - The client-server model is the relationship between two computers in which one, the client, makes a service request from another, the server. The key point about a client-server model is that the client is dependent on the server to provide and manage the information.
 - Browser, Mobile apps, Desktop apps are clients. Server is a computer that provides data to other computers.
 - For example, websites are stored on web servers. A web browser is the client which makes a request to the server, and the server sends the website to the browser.
@@ -183,7 +181,7 @@ Modern browsers and servers optimize this process through:
 
 ![client-server](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Client-server-model.svg/1280px-Client-server-model.svg.png)
 
-### Peer-to-peer (P2P) 
+### 2. Peer-to-peer (P2P) 
 - decentralized model - A network where each node (peer) acts as both a client and a server. 
 - In the client-server model, many users trying to access a large file, such as a film, would put strain on one server. In the peer-to-peer model, many users on the network could store the same file. Each computer can then send sections of the file, sharing the workload. Each client can download and share files with other users.
 - In P2P - other protocol will not work like - http/https. It will work on BitTorrent protocol.
